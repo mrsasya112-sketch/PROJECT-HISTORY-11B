@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import type { Article } from '../data/articles';
-import { getRelatedArticles } from '../data/articles';
+import { getRelatedArticles, articles } from '../data/articles';
 import { Header } from './Header';
 import { ShareButtons } from './ShareButtons';
-import { NewsCard } from './NewsCard';
+import { RelatedCard } from './RelatedCard';
+
+// SVG плейсхолдер как data URI
+const PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='900' viewBox='0 0 1600 900'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e5e5ea'/%3E%3Cstop offset='100%25' style='stop-color:%23c7c7cc'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill='url(%23g)' width='1600' height='900'/%3E%3Cg fill='%238e8e93' transform='translate(725,375)'%3E%3Crect x='0' y='20' width='150' height='120' rx='8'/%3E%3Ccircle cx='45' cy='75' r='20'/%3E%3Cpolygon points='30,130 75,80 120,130'/%3E%3C/g%3E%3C/svg%3E";
 
 interface ArticlePageProps {
   article: Article;
@@ -13,11 +16,36 @@ interface ArticlePageProps {
 
 export function ArticlePage({ article, onBack, onArticleClick }: ArticlePageProps) {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [heroError, setHeroError] = useState(false);
+  const [usedFallbackUrl, setUsedFallbackUrl] = useState(false);
+  
+  // Получаем все статьи для блока "Читайте также" (показываем все 3, включая текущую убираем)
   const relatedArticles = getRelatedArticles(article.slug);
+  // Если меньше 3-х, добавим еще из всех статей
+  const allRelated = relatedArticles.length >= 2 
+    ? relatedArticles 
+    : articles.filter(a => a.slug !== article.slug).slice(0, 3);
 
   const shareUrl = typeof window !== 'undefined' 
     ? `${window.location.origin}/news/${article.slug}.html` 
     : `/news/${article.slug}.html`;
+
+  const handleHeroError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    // Сначала пробуем внешний URL fallback
+    if (!usedFallbackUrl && article.heroImageFallback) {
+      setUsedFallbackUrl(true);
+      e.currentTarget.src = article.heroImageFallback;
+      return;
+    }
+    // Если и fallback не сработал — показываем плейсхолдер
+    setHeroError(true);
+    e.currentTarget.src = PLACEHOLDER_IMAGE;
+    setHeroLoaded(true);
+  }, [usedFallbackUrl, article.heroImageFallback]);
+
+  const handleHeroLoad = useCallback(() => {
+    setHeroLoaded(true);
+  }, []);
 
   return (
     <>
@@ -58,13 +86,17 @@ export function ArticlePage({ article, onBack, onArticleClick }: ArticlePageProp
               src={article.heroImage}
               alt={article.heroCaption}
               loading="eager"
-              onLoad={() => setHeroLoaded(true)}
+              decoding="async"
+              referrerPolicy="no-referrer"
+              onLoad={handleHeroLoad}
+              onError={handleHeroError}
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 opacity: heroLoaded ? 1 : 0,
                 transition: 'opacity var(--transition-normal)',
+                filter: heroError ? 'grayscale(100%)' : 'none',
               }}
             />
             <figcaption
@@ -239,7 +271,7 @@ export function ArticlePage({ article, onBack, onArticleClick }: ArticlePageProp
           </div>
         </article>
 
-        {/* Related Articles */}
+        {/* Related Articles - iOS Style Carousel */}
         <section
           style={{
             marginTop: 'var(--spacing-5xl)',
@@ -258,15 +290,18 @@ export function ArticlePage({ article, onBack, onArticleClick }: ArticlePageProp
           >
             Читайте также
           </h2>
+          
+          {/* Desktop: Grid 3 columns, Mobile: Horizontal scroll */}
           <div
+            className="related-articles-container"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 'var(--spacing-xl)',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: '16px',
             }}
           >
-            {relatedArticles.map((relatedArticle) => (
-              <NewsCard
+            {allRelated.map((relatedArticle) => (
+              <RelatedCard
                 key={relatedArticle.id}
                 article={relatedArticle}
                 onClick={() => onArticleClick(relatedArticle.slug)}
@@ -280,6 +315,37 @@ export function ArticlePage({ article, onBack, onArticleClick }: ArticlePageProp
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
+        }
+        
+        /* Mobile: Horizontal scroll carousel */
+        @media (max-width: 768px) {
+          .related-articles-container {
+            display: flex !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 12px !important;
+            padding-bottom: 6px !important;
+            margin-left: calc(-1 * var(--spacing-xl)) !important;
+            margin-right: calc(-1 * var(--spacing-xl)) !important;
+            padding-left: var(--spacing-xl) !important;
+            padding-right: var(--spacing-xl) !important;
+          }
+          
+          .related-articles-container::-webkit-scrollbar {
+            display: none;
+          }
+          
+          .related-articles-container {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          
+          .related-card {
+            scroll-snap-align: start !important;
+            min-width: 260px !important;
+            flex-shrink: 0 !important;
+          }
         }
       `}</style>
     </>

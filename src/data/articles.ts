@@ -7,7 +7,9 @@ export interface Article {
   author: string;
   category: string;
   thumbnail: string;
+  thumbnailFallback: string;
   heroImage: string;
+  heroImageFallback: string;
   heroCaption: string;
   lead: string;
   sections: {
@@ -15,6 +17,38 @@ export interface Article {
     content: string[];
   }[];
 }
+
+// Локальные пути к изображениям
+const LOCAL_IMAGES = {
+  kupala: {
+    thumbnail: '/assets/images/kupala.jpg',
+    hero: '/assets/images/hero-kupala.jpg',
+  },
+  kolas: {
+    thumbnail: '/assets/images/kolas.jpg',
+    hero: '/assets/images/hero-kolas.jpg',
+  },
+  ignatovsky: {
+    thumbnail: '/assets/images/ignatovsky.jpg',
+    hero: '/assets/images/hero-ignatovsky.jpg',
+  },
+};
+
+// Внешние URL для fallback (если локальные не найдены)
+const EXTERNAL_IMAGES = {
+  kupala: {
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/0/0d/Yanka_Kupala.jpg',
+    hero: 'https://images.unsplash.com/photo-1580309237429-661ea7cfa2e0?auto=format&fit=crop&w=1600&q=80',
+  },
+  kolas: {
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Jakub_Kolas.jpg',
+    hero: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80',
+  },
+  ignatovsky: {
+    thumbnail: 'https://upload.wikimedia.org/wikipedia/commons/8/8c/Ihnatouski.jpg',
+    hero: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80',
+  },
+};
 
 export const articles: Article[] = [
   {
@@ -25,8 +59,10 @@ export const articles: Article[] = [
     date: "31 января 2026",
     author: "Редакция",
     category: "Культура",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/commons/0/0d/Yanka_Kupala.jpg",
-    heroImage: "https://images.unsplash.com/photo-1580309237429-661ea7cfa2e0?auto=format&fit=crop&w=1200&q=80",
+    thumbnail: LOCAL_IMAGES.kupala.thumbnail,
+    thumbnailFallback: EXTERNAL_IMAGES.kupala.thumbnail,
+    heroImage: LOCAL_IMAGES.kupala.hero,
+    heroImageFallback: EXTERNAL_IMAGES.kupala.hero,
     heroCaption: "Минск начала XX века — город, сыгравший ключевую роль в судьбе Янки Купалы",
     lead: "Минск для Янки Купалы был не просто местом жительства. Именно здесь формировался его характер, рождались ключевые произведения и складывалась общественная миссия поэта, ставшего символом белорусской культуры.",
     sections: [
@@ -88,8 +124,10 @@ export const articles: Article[] = [
     date: "31 января 2026",
     author: "Редакция",
     category: "Культура",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/commons/4/45/Jakub_Kolas.jpg",
-    heroImage: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+    thumbnail: LOCAL_IMAGES.kolas.thumbnail,
+    thumbnailFallback: EXTERNAL_IMAGES.kolas.thumbnail,
+    heroImage: LOCAL_IMAGES.kolas.hero,
+    heroImageFallback: EXTERNAL_IMAGES.kolas.hero,
     heroCaption: "Якуб Колас — народный поэт Беларуси",
     lead: "Якуб Колас — один из основоположников современной белорусской литературы, поэт и прозаик, чьё творчество стало воплощением народного духа и национального самосознания.",
     sections: [
@@ -147,8 +185,10 @@ export const articles: Article[] = [
     date: "31 января 2026",
     author: "Редакция",
     category: "История и культура",
-    thumbnail: "https://upload.wikimedia.org/wikipedia/commons/8/8c/Ihnatouski.jpg",
-    heroImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
+    thumbnail: LOCAL_IMAGES.ignatovsky.thumbnail,
+    thumbnailFallback: EXTERNAL_IMAGES.ignatovsky.thumbnail,
+    heroImage: LOCAL_IMAGES.ignatovsky.hero,
+    heroImageFallback: EXTERNAL_IMAGES.ignatovsky.hero,
     heroCaption: "Всеволод Игнатовский — первый президент Академии наук БССР",
     lead: "Всеволод Макарович Игнатовский — выдающийся белорусский историк, государственный деятель, первый президент Академии наук БССР. Его жизнь — пример беззаветного служения науке и родной земле.",
     sections: [

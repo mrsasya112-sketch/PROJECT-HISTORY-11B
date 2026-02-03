@@ -30,9 +30,9 @@ export function HomePage({ onArticleClick }: HomePageProps) {
       <Header />
       <main
         style={{
-          maxWidth: '1200px',
+          maxWidth: '980px',
           margin: '0 auto',
-          padding: 'var(--spacing-xl)',
+          padding: '0 var(--spacing-lg)',
           paddingBottom: 'calc(var(--spacing-5xl) + var(--safe-area-bottom))',
         }}
       >
@@ -81,14 +81,14 @@ export function HomePage({ onArticleClick }: HomePageProps) {
           </div>
         </section>
 
-        {/* Articles Grid */}
+        {/* Articles Feed - Vertical Stack */}
         <section>
           {hasResults ? (
             <div
               style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-                gap: 'var(--spacing-2xl)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
                 position: 'relative',
               }}
             >
@@ -205,6 +205,20 @@ export function HomePage({ onArticleClick }: HomePageProps) {
           {' '}— Культура и история Минска
         </p>
       </footer>
+
+      <style>{`
+        @media (max-width: 768px) {
+          main {
+            padding-left: 14px !important;
+            padding-right: 14px !important;
+          }
+        }
+        @media (min-width: 1200px) {
+          main {
+            max-width: 1100px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }

@@ -1,0 +1,36 @@
+# Источники изображений для МинскNews
+# Скачайте изображения по ссылкам ниже и сохраните в папку /assets/images/
+
+## Портреты (Wikimedia Commons)
+
+kupala.jpg
+Источник: https://upload.wikimedia.org/wikipedia/commons/0/0d/Yanka_Kupala.jpg
+Описание: Портрет Янки Купалы
+
+kolas.jpg
+Источник: https://upload.wikimedia.org/wikipedia/commons/4/45/Jakub_Kolas.jpg
+Описание: Портрет Якуба Коласа
+
+ignatovsky.jpg
+Источник: https://upload.wikimedia.org/wikipedia/commons/8/8c/Ihnatouski.jpg
+Описание: Портрет Всеволода Игнатовского
+
+## Hero-изображения (Unsplash)
+
+hero-kupala.jpg
+Источник: https://images.unsplash.com/photo-1580309237429-661ea7cfa2e0?auto=format&fit=crop&w=1600&q=80
+Описание: Минск начала XX века — город, сыгравший ключевую роль в судьбе Янки Купалы
+
+hero-kolas.jpg
+Источник: https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80
+Описание: Якуб Колас — народный поэт Беларуси
+
+hero-ignatovsky.jpg
+Источник: https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1600&q=80
+Описание: Всеволод Игнатовский — первый президент Академии наук БССР
+
+## Инструкция
+1. Создайте папку /public/assets/images/ если она не существует
+2. Скачайте каждое изображение по указанной ссылке
+3. Сохраните с указанным именем файла
+4. Проект автоматически будет использовать локальные изображения
