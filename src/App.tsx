@@ -225,7 +225,7 @@ export default function App() {
                   <a href="https://drive.google.com/file/d/13Jr9eERs9OmrXwfkYZvb94WUV6Wj9xxV/view?usp=drive_link" target="_blank" rel="noopener noreferrer" className="border border-white px-6 py-3 text-sm uppercase tracking-[0.18em] hover:bg-white hover:text-black">
                     Построить маршрут
                   </a>
-                  <a href="#references" className="text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-white">
+                  <a href="https://geometriodash.ru/chity/mega-hack" className="text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-white">
                     Смотреть референсы
                   </a>
                 </div>
