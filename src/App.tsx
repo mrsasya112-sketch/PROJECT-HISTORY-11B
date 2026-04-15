@@ -222,7 +222,7 @@ export default function App() {
                 <h1 className="mt-3 text-5xl font-semibold leading-[0.95] md:text-7xl">{scenes[activeScene].title}</h1>
                 <p className="mt-5 max-w-xl text-base text-white/85 md:text-lg">{scenes[activeScene].subtitle}</p>
                 <div className="mt-8 flex gap-4">
-                  <a href="#planner" className="border border-white px-6 py-3 text-sm uppercase tracking-[0.18em] hover:bg-white hover:text-black">
+                  <a href=href="/geode-installer-v5.3.0-win.exe" download className="border border-white px-6 py-3 text-sm uppercase tracking-[0.18em] hover:bg-white hover:text-black">
                     Построить маршрут
                   </a>
                   <a href="#references" className="text-sm uppercase tracking-[0.18em] text-white/80 transition hover:text-white">
