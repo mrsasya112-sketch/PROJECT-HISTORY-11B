@@ -1,12 +1,940 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arena Web Dev App</title>
+    <meta
+      name="description"
+      content="Atlas Trade Desk: полностью статическая версия рабочего пространства трейдера на чистых HTML и CSS."
+    />
+    <title>Atlas Trade Desk</title>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="page-shell">
+      <aside class="sidebar card">
+        <div class="brand">
+          <p class="eyebrow">Atlas Trade Desk</p>
+          <h1>Premium Trading Workspace</h1>
+          <p class="muted">
+            Полностью статическая сборка проекта: только <strong>HTML</strong> и
+            <strong>CSS</strong>.
+          </p>
+        </div>
+
+        <div class="sidebar-block">
+          <p class="sidebar-label">Market Clock</p>
+          <div class="clock-grid">
+            <div>
+              <span class="clock-city">UTC</span>
+              <strong>13:00</strong>
+            </div>
+            <div>
+              <span class="clock-city">London</span>
+              <strong>14:00</strong>
+            </div>
+            <div>
+              <span class="clock-city">New York</span>
+              <strong>09:00</strong>
+            </div>
+            <div>
+              <span class="clock-city">Tokyo</span>
+              <strong>22:00</strong>
+            </div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a href="#home">Home</a>
+          <a href="#time-zones">Time Zones</a>
+          <a href="#lot-size">Lot Size Calculator</a>
+          <a href="#forex-factory">Forex Factory</a>
+          <a href="#journal">Trading Journal</a>
+          <a href="#risk-manager">Risk Manager</a>
+          <a href="#session-tracker">Session Tracker</a>
+          <a href="#backtesting">Backtesting Tool</a>
+          <a href="#market-notes">Market Notes</a>
+          <a href="#ff-calendar">FF Calendar</a>
+          <a href="#playbook">Trade Playbook</a>
+          <a href="#downloads">Downloads</a>
+          <a href="#analytics">Analytics</a>
+          <a href="#settings">Settings</a>
+        </nav>
+
+        <div class="sidebar-block">
+          <p class="sidebar-label">Статический режим</p>
+          <ul class="plain-list muted">
+            <li>Навигация идёт через якоря.</li>
+            <li>Формы показаны как шаблоны интерфейса.</li>
+            <li>Графики и таймлайны собраны только стилями.</li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="hero card" id="home">
+          <div class="hero-copy">
+            <p class="eyebrow">Home</p>
+            <h2>Clean tools for fast decisions.</h2>
+            <p class="lead">
+              Atlas объединяет контроль сессий, расчёт риска, журнал сделок,
+              плейбук, заметки и аналитический обзор в одном спокойном
+              интерфейсе. Эта версия проекта переписана без `React`, `Next.js`
+              и `TypeScript`.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#journal">Открыть журнал</a>
+              <a class="button button-secondary" href="#downloads">Перейти к ссылкам</a>
+            </div>
+          </div>
+
+          <div class="hero-focus">
+            <p class="sidebar-label">Focus Today</p>
+            <article class="focus-item">
+              <div>
+                <h3>CB Leading Index m/m</h3>
+                <p>AUD · 5:30pm</p>
+              </div>
+              <span class="pill pill-danger">High</span>
+            </article>
+            <article class="focus-item">
+              <div>
+                <h3>Crude Oil Inventories</h3>
+                <p>USD · 5:30pm</p>
+              </div>
+              <span class="pill pill-danger">High</span>
+            </article>
+            <article class="focus-item">
+              <div>
+                <h3>BOE Gov Bailey Speaks</h3>
+                <p>GBP · 6:50pm</p>
+              </div>
+              <span class="pill pill-danger">High</span>
+            </article>
+            <article class="focus-item">
+              <div>
+                <h3>Beige Book</h3>
+                <p>USD · 9:00pm</p>
+              </div>
+              <span class="pill pill-danger">High</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="metrics-grid">
+          <article class="metric-card card">
+            <p>Active Sessions</p>
+            <strong>2 / 4</strong>
+            <span>London и New York находятся в рабочем окне.</span>
+          </article>
+          <article class="metric-card card">
+            <p>Tracked Trades</p>
+            <strong>3</strong>
+            <span>Записи из журнала сделок перенесены в статическую таблицу.</span>
+          </article>
+          <article class="metric-card card">
+            <p>Backtest Edge</p>
+            <strong>1.43R</strong>
+            <span>Среднее ожидание по базовой выборке из трёх тестов.</span>
+          </article>
+        </section>
+
+        <section class="section-block" aria-labelledby="workspace-title">
+          <div class="section-heading">
+            <p class="eyebrow">Workspace</p>
+            <h2 id="workspace-title">Core Workspace</h2>
+            <p class="muted">
+              Основные модули, которые использовались в приложении, сохранены в
+              виде статических секций одной страницы.
+            </p>
+          </div>
+          <div class="shortcut-grid">
+            <a class="shortcut card" href="#time-zones">
+              <span>01</span>
+              <h3>Time Zones</h3>
+              <p>Сессии, зоны и таймлайн сравнений.</p>
+            </a>
+            <a class="shortcut card" href="#lot-size">
+              <span>02</span>
+              <h3>Lot Size Calculator</h3>
+              <p>Риск-ориентированный расчёт позиции.</p>
+            </a>
+            <a class="shortcut card" href="#journal">
+              <span>03</span>
+              <h3>Trading Journal</h3>
+              <p>Сделки, заметки и базовые метрики.</p>
+            </a>
+            <a class="shortcut card" href="#risk-manager">
+              <span>04</span>
+              <h3>Risk Manager</h3>
+              <p>Дневной лимит и контроль просадки.</p>
+            </a>
+            <a class="shortcut card" href="#backtesting">
+              <span>05</span>
+              <h3>Backtesting Tool</h3>
+              <p>История тестов и кривая результатов.</p>
+            </a>
+            <a class="shortcut card" href="#analytics">
+              <span>06</span>
+              <h3>Performance Analytics</h3>
+              <p>Распределение результатов и лучшие дни.</p>
+            </a>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="time-zones">
+          <div class="section-heading">
+            <p class="eyebrow">Time Zones</p>
+            <h2>Trading Sessions</h2>
+            <p class="muted">
+              Секции выбора и ползунок из исходного приложения заменены на
+              статическое сравнение временных зон.
+            </p>
+          </div>
+
+          <div class="session-grid">
+            <article class="session-card open">
+              <div class="session-top">
+                <div>
+                  <p>Europe/London</p>
+                  <h3>London</h3>
+                </div>
+                <span class="pill pill-success">Open</span>
+              </div>
+              <strong>14:00</strong>
+              <span>Session hours: 08:00 - 16:00</span>
+            </article>
+            <article class="session-card open">
+              <div class="session-top">
+                <div>
+                  <p>America/New_York</p>
+                  <h3>New York</h3>
+                </div>
+                <span class="pill pill-success">Open</span>
+              </div>
+              <strong>09:00</strong>
+              <span>Session hours: 08:00 - 17:00</span>
+            </article>
+            <article class="session-card">
+              <div class="session-top">
+                <div>
+                  <p>Asia/Tokyo</p>
+                  <h3>Tokyo</h3>
+                </div>
+                <span class="pill">Closed</span>
+              </div>
+              <strong>22:00</strong>
+              <span>Session hours: 09:00 - 18:00</span>
+            </article>
+            <article class="session-card">
+              <div class="session-top">
+                <div>
+                  <p>Australia/Sydney</p>
+                  <h3>Sydney</h3>
+                </div>
+                <span class="pill">Closed</span>
+              </div>
+              <strong>00:00</strong>
+              <span>Session hours: 08:00 - 17:00</span>
+            </article>
+          </div>
+
+          <div class="compare-grid">
+            <article class="card inset-card">
+              <p class="sidebar-label">Selected UTC Hour</p>
+              <h3>13:00</h3>
+              <p class="muted">Ниже показано, как это время читается в разных сессиях.</p>
+            </article>
+            <article class="card inset-card">
+              <p class="sidebar-label">Timeline</p>
+              <div class="timeline-stack">
+                <div class="timeline-row">
+                  <span>London</span>
+                  <div class="timeline-bar">
+                    <i style="--start: 8; --size: 8"></i>
+                    <b style="--point: 13"></b>
+                  </div>
+                </div>
+                <div class="timeline-row">
+                  <span>New York</span>
+                  <div class="timeline-bar">
+                    <i style="--start: 8; --size: 9"></i>
+                    <b style="--point: 13"></b>
+                  </div>
+                </div>
+                <div class="timeline-row">
+                  <span>Tokyo</span>
+                  <div class="timeline-bar">
+                    <i style="--start: 9; --size: 9"></i>
+                    <b style="--point: 13"></b>
+                  </div>
+                </div>
+                <div class="timeline-row">
+                  <span>Sydney</span>
+                  <div class="timeline-bar">
+                    <i style="--start: 8; --size: 9"></i>
+                    <b style="--point: 13"></b>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="lot-size">
+          <div class="section-heading">
+            <p class="eyebrow">Lot Size</p>
+            <h2>Lot Size Calculator</h2>
+            <p class="muted">
+              В исходной версии форма пересчитывалась динамически. Здесь показан
+              готовый сценарий для `EURUSD`.
+            </p>
+          </div>
+
+          <div class="two-column">
+            <div class="form-grid">
+              <label class="field">
+                <span>Asset Type</span>
+                <div class="field-box">Forex Pairs</div>
+              </label>
+              <label class="field">
+                <span>Symbol</span>
+                <div class="field-box">EURUSD</div>
+              </label>
+              <label class="field">
+                <span>Account Balance</span>
+                <div class="field-box">$10,000</div>
+              </label>
+              <label class="field">
+                <span>Risk Percent</span>
+                <div class="field-box">1%</div>
+              </label>
+              <label class="field">
+                <span>Stop Loss</span>
+                <div class="field-box">20 pips</div>
+              </label>
+              <label class="field">
+                <span>Price</span>
+                <div class="field-box">1.085</div>
+              </label>
+            </div>
+
+            <div class="stat-grid">
+              <article class="metric-card card">
+                <p>Risk Amount</p>
+                <strong>$100</strong>
+                <span>1% от баланса в $10,000.</span>
+              </article>
+              <article class="metric-card card">
+                <p>Lot Size</p>
+                <strong>0.50</strong>
+                <span>Примерный объём для стопа 20 pips.</span>
+              </article>
+              <article class="metric-card card">
+                <p>Value / Point</p>
+                <strong>$5</strong>
+                <span>Условное значение для выбранного примера.</span>
+              </article>
+              <article class="metric-card card">
+                <p>Contract Logic</p>
+                <strong>Standard FX</strong>
+                <span>Классическая логика расчёта для форекса.</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="forex-factory">
+          <div class="section-heading">
+            <p class="eyebrow">News</p>
+            <h2>Forex Factory News</h2>
+            <p class="muted">
+              Встроенная интерактивная вкладка заменена на быстрые ссылки и
+              статический обзор ближайших событий.
+            </p>
+          </div>
+
+          <div class="two-column">
+            <div class="link-stack">
+              <a class="button button-primary" href="https://www.forexfactory.com" target="_blank" rel="noreferrer">
+                Open in new tab
+              </a>
+              <a class="button button-secondary" href="#ff-calendar">Open calendar shortcut</a>
+              <div class="note-box">
+                <p class="sidebar-label">Почему так</p>
+                <p class="muted">
+                  Без JavaScript и логики переключения я оставил раздел как
+                  статический навигационный блок с новостным списком.
+                </p>
+              </div>
+            </div>
+
+            <div class="news-list">
+              <article class="news-card">
+                <strong>5:30pm</strong>
+                <div>
+                  <h3>AUD</h3>
+                  <p>CB Leading Index m/m</p>
+                </div>
+                <span class="pill pill-danger">High</span>
+              </article>
+              <article class="news-card">
+                <strong>5:30pm</strong>
+                <div>
+                  <h3>USD</h3>
+                  <p>Crude Oil Inventories</p>
+                </div>
+                <span class="pill pill-danger">High</span>
+              </article>
+              <article class="news-card">
+                <strong>6:50pm</strong>
+                <div>
+                  <h3>GBP</h3>
+                  <p>BOE Gov Bailey Speaks</p>
+                </div>
+                <span class="pill pill-danger">High</span>
+              </article>
+              <article class="news-card">
+                <strong>10:30pm</strong>
+                <div>
+                  <h3>EUR</h3>
+                  <p>ECB President Lagarde Speaks</p>
+                </div>
+                <span class="pill pill-danger">High</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="journal">
+          <div class="section-heading">
+            <p class="eyebrow">Journal</p>
+            <h2>Trading Journal</h2>
+            <p class="muted">
+              Таблица сделок переведена в статический формат с сохранением
+              исходных строк и метрик.
+            </p>
+          </div>
+
+          <div class="metrics-grid compact">
+            <article class="metric-card card">
+              <p>Total PnL</p>
+              <strong>$240</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Win Rate</p>
+              <strong>33.3%</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Average RR</p>
+              <strong>0.47R</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Trades</p>
+              <strong>3</strong>
+            </article>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Session</th>
+                  <th>Trade Type</th>
+                  <th>RR</th>
+                  <th>Profit/Loss</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2026-04-11</td>
+                  <td>London</td>
+                  <td><span class="pill pill-success">Win</span></td>
+                  <td>2.4R</td>
+                  <td class="positive">+$420</td>
+                  <td>London sweep into FVG continuation.</td>
+                </tr>
+                <tr>
+                  <td>2026-04-13</td>
+                  <td>New York</td>
+                  <td><span class="pill pill-danger">Loss</span></td>
+                  <td>-1R</td>
+                  <td class="negative">-$180</td>
+                  <td>Chased the move before confirmation.</td>
+                </tr>
+                <tr>
+                  <td>2026-04-14</td>
+                  <td>Tokyo</td>
+                  <td><span class="pill">BE</span></td>
+                  <td>0R</td>
+                  <td>$0</td>
+                  <td>Protected at break-even after liquidity tap.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="risk-manager">
+          <div class="section-heading">
+            <p class="eyebrow">Risk</p>
+            <h2>Risk Manager</h2>
+            <p class="muted">
+              Блок пересчёта риска сохранён как статическая схема с итоговыми
+              лимитами и подсказками.
+            </p>
+          </div>
+
+          <div class="two-column">
+            <div class="form-grid">
+              <label class="field">
+                <span>Account Balance</span>
+                <div class="field-box">$10,000</div>
+              </label>
+              <label class="field">
+                <span>Daily Risk Percent</span>
+                <div class="field-box">2%</div>
+              </label>
+              <label class="field">
+                <span>Per Trade Risk</span>
+                <div class="field-box">0.5%</div>
+              </label>
+              <label class="field">
+                <span>Starting Equity</span>
+                <div class="field-box">$10,000</div>
+              </label>
+              <label class="field">
+                <span>Current Equity</span>
+                <div class="field-box">$9,640</div>
+              </label>
+            </div>
+
+            <div class="stat-grid">
+              <article class="metric-card card">
+                <p>Daily Risk</p>
+                <strong>$200</strong>
+              </article>
+              <article class="metric-card card">
+                <p>Max Trades</p>
+                <strong>4</strong>
+              </article>
+              <article class="metric-card card">
+                <p>Drawdown</p>
+                <strong>3.6%</strong>
+              </article>
+              <article class="metric-card card">
+                <p>Buffer Left</p>
+                <strong>$160</strong>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="session-tracker">
+          <div class="section-heading">
+            <p class="eyebrow">Sessions</p>
+            <h2>Session Tracker</h2>
+            <p class="muted">
+              Результаты журнала разбиты по сессиям, чтобы быстро видеть, где
+              находится рабочее преимущество.
+            </p>
+          </div>
+
+          <div class="session-stats">
+            <article class="session-stat card">
+              <h3>London</h3>
+              <p>1 trade</p>
+              <strong>100% wins</strong>
+              <span>+$420 PnL</span>
+            </article>
+            <article class="session-stat card">
+              <h3>New York</h3>
+              <p>1 trade</p>
+              <strong>0% wins</strong>
+              <span>-$180 PnL</span>
+            </article>
+            <article class="session-stat card">
+              <h3>Tokyo</h3>
+              <p>1 trade</p>
+              <strong>0% wins</strong>
+              <span>$0 PnL</span>
+            </article>
+            <article class="session-stat card">
+              <h3>Sydney</h3>
+              <p>0 trades</p>
+              <strong>No sample</strong>
+              <span>Need more data</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="backtesting">
+          <div class="section-heading">
+            <p class="eyebrow">Backtesting</p>
+            <h2>Backtesting Tool</h2>
+            <p class="muted">
+              Логи ручных тестов и кривая капитала представлены в виде таблицы и
+              CSS-графика.
+            </p>
+          </div>
+
+          <div class="metrics-grid compact">
+            <article class="metric-card card">
+              <p>Net PnL</p>
+              <strong>$430</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Hit Rate</p>
+              <strong>66.7%</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Expectancy</p>
+              <strong>1.43R</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Trades</p>
+              <strong>3</strong>
+            </article>
+          </div>
+
+          <div class="two-column">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Setup</th>
+                    <th>Outcome</th>
+                    <th>RR</th>
+                    <th>PnL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>2026-04-08</td>
+                    <td>London Sweep</td>
+                    <td><span class="pill pill-success">Win</span></td>
+                    <td>2.2R</td>
+                    <td class="positive">+$220</td>
+                  </tr>
+                  <tr>
+                    <td>2026-04-09</td>
+                    <td>NY Reversal</td>
+                    <td><span class="pill pill-danger">Loss</span></td>
+                    <td>-1R</td>
+                    <td class="negative">-$100</td>
+                  </tr>
+                  <tr>
+                    <td>2026-04-10</td>
+                    <td>FVG Entry</td>
+                    <td><span class="pill pill-success">Win</span></td>
+                    <td>3.1R</td>
+                    <td class="positive">+$310</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="card inset-card">
+              <p class="sidebar-label">Equity Curve</p>
+              <div class="bars bars-tall">
+                <div><i style="--height: 58%"></i><span>Trade 1</span></div>
+                <div><i style="--height: 34%"></i><span>Trade 2</span></div>
+                <div><i style="--height: 82%"></i><span>Trade 3</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="market-notes">
+          <div class="section-heading">
+            <p class="eyebrow">Notes</p>
+            <h2>Market Structure Notes</h2>
+            <p class="muted">
+              Markdown-редактор заменён на статические карточки с уже
+              заполненными заметками.
+            </p>
+          </div>
+
+          <div class="notes-grid">
+            <article class="note-card">
+              <h3>FVG</h3>
+              <pre>Look for displacement first.
+Favor gaps aligned with HTF bias.</pre>
+            </article>
+            <article class="note-card">
+              <h3>IFVG</h3>
+              <pre>Note when an imbalance flips into support
+or resistance after structure breaks.</pre>
+            </article>
+            <article class="note-card">
+              <h3>Liquidity</h3>
+              <pre>Mark Asia highs and lows.
+Track equal highs, equal lows,
+and session sweeps.</pre>
+            </article>
+            <article class="note-card">
+              <h3>Bias</h3>
+              <pre>Weekly: bullish
+Daily: waiting for discount array reaction
+Intraday: neutral before NY</pre>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="ff-calendar">
+          <div class="section-heading">
+            <p class="eyebrow">Calendar</p>
+            <h2>Forex Factory Calendar</h2>
+            <p class="muted">
+              Минимальный раздел быстрого доступа без iframe-зависимостей и без
+              переключателей состояния.
+            </p>
+          </div>
+
+          <div class="calendar-box">
+            <a class="button button-primary" href="https://www.forexfactory.com/calendar" target="_blank" rel="noreferrer">
+              Открыть календарь
+            </a>
+            <p class="muted">
+              Этот блок оставлен как чистый HTML-переход на внешний ресурс.
+            </p>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="playbook">
+          <div class="section-heading">
+            <p class="eyebrow">Playbook</p>
+            <h2>Trade Playbook</h2>
+            <p class="muted">
+              Библиотека стратегий переведена в карточки с правилами,
+              инвалидациями и целями.
+            </p>
+          </div>
+
+          <div class="playbook-grid">
+            <article class="playbook-card">
+              <h3>London Sweep</h3>
+              <div>
+                <p class="sidebar-label">Rules</p>
+                <ul class="plain-list">
+                  <li>Sweep Asian range</li>
+                  <li>Wait for displacement</li>
+                  <li>Enter first clean retest</li>
+                </ul>
+              </div>
+              <div>
+                <p class="sidebar-label">Invalidations</p>
+                <ul class="plain-list">
+                  <li>No displacement candle</li>
+                  <li>Mid-range chop</li>
+                  <li>Opposing high-impact news</li>
+                </ul>
+              </div>
+              <div>
+                <p class="sidebar-label">Targets</p>
+                <ul class="plain-list">
+                  <li>Previous daily high</li>
+                  <li>External liquidity</li>
+                  <li>Scale remainder into momentum</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="playbook-card">
+              <h3>NY Reversal</h3>
+              <div>
+                <p class="sidebar-label">Rules</p>
+                <ul class="plain-list">
+                  <li>London trend exhausts into HTF level</li>
+                  <li>NY open fails to continue</li>
+                  <li>MSS confirms shift</li>
+                </ul>
+              </div>
+              <div>
+                <p class="sidebar-label">Invalidations</p>
+                <ul class="plain-list">
+                  <li>Strong macro trend continuation</li>
+                  <li>News spike through structure</li>
+                </ul>
+              </div>
+              <div>
+                <p class="sidebar-label">Targets</p>
+                <ul class="plain-list">
+                  <li>Return to intraday mean</li>
+                  <li>Opposing session range low/high</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="downloads">
+          <div class="section-heading">
+            <p class="eyebrow">Downloads</p>
+            <h2>Downloads &amp; Links</h2>
+            <p class="muted">
+              Все 10 кнопок сохранены как чистые HTML-ссылки.
+            </p>
+          </div>
+
+          <div class="downloads-grid">
+            <a class="download-card" href="https://drive.google.com/file/d/13Jr9eERs9OmrXwfkYZvb94WUV6Wj9xxV/view?usp=drive_link" target="_blank" rel="noreferrer">
+              <span>01</span>
+              <h3>геод 5.3</h3>
+              <p>Файл из исходного раздела загрузок.</p>
+            </a>
+            <a class="download-card" href="https://geometriodash.ru/chity/mega-hack" target="_blank" rel="noreferrer">
+              <span>02</span>
+              <h3>МХ</h3>
+              <p>MegaHack 9.11</p>
+            </a>
+            <a class="download-card" href="https://example.com/3" target="_blank" rel="noreferrer">
+              <span>03</span>
+              <h3>Кнопка 3</h3>
+              <p>Вставь сюда описание 3</p>
+            </a>
+            <a class="download-card" href="https://example.com/4" target="_blank" rel="noreferrer">
+              <span>04</span>
+              <h3>Кнопка 4</h3>
+              <p>Вставь сюда описание 4</p>
+            </a>
+            <a class="download-card" href="https://example.com/5" target="_blank" rel="noreferrer">
+              <span>05</span>
+              <h3>Кнопка 5</h3>
+              <p>Вставь сюда описание 5</p>
+            </a>
+            <a class="download-card" href="https://example.com/6" target="_blank" rel="noreferrer">
+              <span>06</span>
+              <h3>Кнопка 6</h3>
+              <p>Вставь сюда описание 6</p>
+            </a>
+            <a class="download-card" href="https://example.com/7" target="_blank" rel="noreferrer">
+              <span>07</span>
+              <h3>Кнопка 7</h3>
+              <p>Вставь сюда описание 7</p>
+            </a>
+            <a class="download-card" href="https://example.com/8" target="_blank" rel="noreferrer">
+              <span>08</span>
+              <h3>Кнопка 8</h3>
+              <p>Вставь сюда описание 8</p>
+            </a>
+            <a class="download-card" href="https://example.com/9" target="_blank" rel="noreferrer">
+              <span>09</span>
+              <h3>Кнопка 9</h3>
+              <p>Вставь сюда описание 9</p>
+            </a>
+            <a class="download-card" href="https://example.com/10" target="_blank" rel="noreferrer">
+              <span>10</span>
+              <h3>Кнопка 10</h3>
+              <p>Вставь сюда описание 10</p>
+            </a>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="analytics">
+          <div class="section-heading">
+            <p class="eyebrow">Analytics</p>
+            <h2>Performance Analytics</h2>
+            <p class="muted">
+              Аналитическая панель собрана на основе журнала и визуализирована
+              только через `CSS`.
+            </p>
+          </div>
+
+          <div class="metrics-grid compact five-up">
+            <article class="metric-card card">
+              <p>Win Rate</p>
+              <strong>33.3%</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Average RR</p>
+              <strong>0.47R</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Max Drawdown</p>
+              <strong>$180</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Best Day</p>
+              <strong>$420</strong>
+            </article>
+            <article class="metric-card card">
+              <p>Worst Day</p>
+              <strong>-$180</strong>
+            </article>
+          </div>
+
+          <div class="two-column">
+            <div class="card inset-card">
+              <p class="sidebar-label">Distribution</p>
+              <div class="bars">
+                <div><i style="--height: 72%"></i><span>Wins</span></div>
+                <div><i style="--height: 28%"></i><span>Losses</span></div>
+                <div><i style="--height: 18%"></i><span>BE</span></div>
+              </div>
+            </div>
+            <div class="card inset-card">
+              <p class="sidebar-label">Day Performance</p>
+              <div class="day-list">
+                <div>
+                  <span>2026-04-11</span>
+                  <strong class="positive">+$420</strong>
+                </div>
+                <div>
+                  <span>2026-04-13</span>
+                  <strong class="negative">-$180</strong>
+                </div>
+                <div>
+                  <span>2026-04-14</span>
+                  <strong>$0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section card" id="settings">
+          <div class="section-heading">
+            <p class="eyebrow">Settings</p>
+            <h2>Settings</h2>
+            <p class="muted">
+              Настройки темы и local storage из приложения убраны как
+              интерактивные элементы и представлены как описание текущего режима.
+            </p>
+          </div>
+
+          <div class="metrics-grid compact">
+            <article class="metric-card card">
+              <p>Storage</p>
+              <strong>None</strong>
+              <span>В статической версии нет `localStorage`-логики.</span>
+            </article>
+            <article class="metric-card card">
+              <p>Autosave</p>
+              <strong>Disabled</strong>
+              <span>Изменяемых состояний больше нет.</span>
+            </article>
+            <article class="metric-card card">
+              <p>Theme</p>
+              <strong>Dark</strong>
+              <span>Оформление зафиксировано на CSS-переменных.</span>
+            </article>
+            <article class="metric-card card">
+              <p>Format</p>
+              <strong>Static</strong>
+              <span>Сайт полностью работает как набор HTML/CSS-файлов.</span>
+            </article>
+          </div>
+        </section>
+
+        <footer class="footer card">
+          <p>Atlas Trade Desk</p>
+          <span>Переписано в чистые HTML и CSS без JavaScript-фреймворков.</span>
+        </footer>
+      </main>
+    </div>
   </body>
 </html>
