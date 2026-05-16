@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AschDev Workshop | Моды, Текстур-паки и Инструкции</title>
+    <!-- Tailwind CSS v4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts: Rubik & Press Start 2P -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #090d16;
+            color: #e2e8f0;
+        }
+        .pixel-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b111e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+        /* Custom Slider Clip Path styling */
+        .slider-after-clip {
+            clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+            transition: clip-path 0.05s linear;
+        }
+        /* Glowing accents */
+        .glow-emerald {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+        }
+        .glow-emerald-hover:hover {
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+        /* Background grid effect */
+        .grid-bg {
+            background-image: 
+                linear-gradient(to right, rgba(16, 185, 129, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(16, 185, 129, 0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* Animation utilities */
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        .pulse-emerald {
+            animation: pulse-slow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="grid-bg min-h-screen flex flex-col">
+
+    <!-- Top Notification Banner -->
+    <div class="bg-gradient-to-r from-emerald-900/80 to-teal-950/80 border-b border-emerald-500/20 text-center py-2 px-4 text-xs text-emerald-300 tracking-wide flex items-center justify-center gap-2 font-medium select-none">
+        <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Обновлено под версию игры <b>1.21.1</b>! Все моды и текстур-паки проверены на вирусы.</span>
+    </div>
+
+    <!-- STICKY NAVBAR -->
+    <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/85">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="bg-gradient-to-br from-emerald-400 to-teal-600 p-2 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] group-hover:scale-105 transition duration-300">
+                    <i data-lucide="box" class="w-6 h-6 text-slate-950 stroke-[2.5]"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-1">
+                        <span class="text-xl font-black text-white tracking-tight">Asch</span>
+                        <span class="text-xl font-black text-emerald-400 tracking-tight">Dev</span>
+                    </div>
+                    <span class="text-[9px] font-semibold text-emerald-500/80 uppercase tracking-widest block -mt-1 pixel-font">WORKSHOP</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="#mods" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition duration-200">Моды</a>
+                <a href="#textures" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition duration-200">Текстур-паки</a>
+                <a href="#install" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/50 transition duration-200">Как установить?</a>
+            </nav>
+
+            <!-- Search and Favorites -->
+            <div class="flex items-center gap-3">
+                <!-- Search Bar (Desktop) -->
+                <div class="relative hidden sm:block">
+                    <input type="text" id="globalSearchInput" placeholder="Поиск модов и паков..." 
+                           class="w-60 bg-slate-900/90 border border-slate-700/60 rounded-xl py-2 pl-10 pr-4 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition duration-200">
+                    <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3.5 top-2.5"></i>
+                </div>
+
+                <!-- Favorites Button -->
+                <button onclick="toggleBookmarksDrawer()" class="relative bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 hover:border-emerald-500/40 p-2.5 rounded-xl transition duration-200 cursor-pointer group">
+                    <i data-lucide="heart" class="w-5 h-5 text-slate-400 group-hover:text-emerald-400 transition duration-200"></i>
+                    <span id="bookmarksCountBadge" class="absolute -top-1.5 -right-1.5 bg-emerald-500 text-slate-950 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-slate-950 shadow-md scale-0 transition-transform duration-300">0</span>
+                </button>
+
+                <!-- Mobile Menu Trigger -->
+                <button onclick="toggleMobileMenu()" class="md:hidden bg-slate-900 border border-slate-800 p-2.5 rounded-xl text-slate-400 hover:text-white cursor-pointer">
+                    <i data-lucide="menu" id="mobileMenuIcon" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Slide Down) -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-950 border-b border-slate-800 py-4 px-6 flex flex-col gap-3 transition duration-300">
+            <!-- Search Bar (Mobile) -->
+            <div class="relative w-full mb-2">
+                <input type="text" id="mobileSearchInput" placeholder="Поиск модов и паков..." 
+                       class="w-full bg-slate-900 border border-slate-700/80 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent">
+                <i data-lucide="search" class="w-5 h-5 text-slate-500 absolute left-3.5 top-3.5"></i>
+            </div>
+            <a href="#mods" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-emerald-400 py-2 text-base font-medium border-b border-slate-900">Моды</a>
+            <a href="#textures" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-emerald-400 py-2 text-base font-medium border-b border-slate-900">Текстур-паки</a>
+            <a href="#install" onclick="toggleMobileMenu()" class="text-slate-300 hover:text-emerald-400 py-2 text-base font-medium">Как установить?</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-slate-900">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Accent Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6 pulse-emerald">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                Мастерская Игровых Улучшений
+            </div>
+
+            <!-- Main Hero Heading -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none max-w-4xl mx-auto">
+                Прокачай свой мир <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-400 glow-emerald">модами и текстурами</span>
+            </h1>
+
+            <!-- Subtext -->
+            <p class="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto font-light">
+                Качественные моды на любой вкус, невероятные реалистичные текстур-паки и пошаговые руководства по установке. Скачивай в один клик!
+            </p>
+
+            <!-- Stats Highlights -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mt-12">
+                <div class="bg-slate-950/50 border border-slate-800/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <span class="block text-2xl sm:text-3xl font-bold text-white">5</span>
+                    <span class="text-xs text-slate-500 font-medium uppercase">Лучших Модов</span>
+                </div>
+                <div class="bg-slate-950/50 border border-slate-800/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <span class="block text-2xl sm:text-3xl font-bold text-emerald-400">2</span>
+                    <span class="text-xs text-slate-500 font-medium uppercase">Ресурспаков</span>
+                </div>
+                <div class="bg-slate-950/50 border border-slate-800/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <span class="block text-2xl sm:text-3xl font-bold text-white">100%</span>
+                    <span class="text-xs text-slate-500 font-medium uppercase">Безопасные файлы</span>
+                </div>
+                <div class="bg-slate-950/50 border border-slate-800/60 rounded-2xl p-4 backdrop-blur-sm">
+                    <span class="block text-2xl sm:text-3xl font-bold text-emerald-400">1</span>
+                    <span class="text-xs text-slate-500 font-medium uppercase">Скачивание</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#mods" class="px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm tracking-wide hover:scale-[1.02] transition duration-200 shadow-[0_4px_20px_rgba(16,185,129,0.3)] cursor-pointer flex items-center gap-2">
+                    <i data-lucide="box" class="w-5 h-5 stroke-[2.5]"></i>
+                    Каталог Модов
+                </a>
+                <a href="#textures" class="px-8 py-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/60 text-white font-semibold text-sm hover:border-emerald-500/40 transition duration-200 cursor-pointer flex items-center gap-2">
+                    <i data-lucide="image" class="w-5 h-5"></i>
+                    Текстур-паки
+                </a>
+                <a href="#install" class="px-8 py-4 rounded-xl bg-transparent hover:bg-slate-900/50 text-emerald-400 font-medium text-sm transition duration-200 cursor-pointer flex items-center gap-1">
+                    Как установить?
+                    <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-28">
+
+        <!-- MODS SECTION ("Моды") -->
+        <section id="mods" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <div>
+                    <div class="flex items-center gap-2 text-emerald-400 font-medium text-sm uppercase tracking-widest mb-2">
+                        <i data-lucide="box" class="w-4 h-4"></i>
+                        Дополнения для игры
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        Популярные Моды
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Качественные модификации с подробным описанием функций, скриншотами и инструкцией по запуску.
+                    </p>
+                </div>
+
+                <!-- Categories Filter Tabs -->
+                <div class="flex flex-wrap gap-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
+                    <button onclick="filterMods('all', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-200 bg-emerald-500 text-slate-950 shadow-md transition duration-200 cursor-pointer">
+                        Все
+                    </button>
+                    <button onclick="filterMods('gameplay', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer">
+                        Геймплей
+                    </button>
+                    <button onclick="filterMods('optimization', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer">
+                        Оптимизация
+                    </button>
+                    <button onclick="filterMods('graphics', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer">
+                        Графика
+                    </button>
+                </div>
+            </div>
+
+            <!-- Grid of Mods -->
+            <div id="modsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Dynamic injection via Javascript -->
+            </div>
+        </section>
+
+
+        <!-- TEXTUREPACKS SECTION ("Текстур-паки") -->
+        <section id="textures" class="scroll-mt-24">
+            <div>
+                <div class="flex items-center gap-2 text-emerald-400 font-medium text-sm uppercase tracking-widest mb-2">
+                    <i data-lucide="palette" class="w-4 h-4"></i>
+                    Графическое обновление
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                    Реалистичные Текстур-паки
+                </h2>
+                <p class="text-slate-400 text-sm mt-1 max-w-2xl">
+                    Оцените разницу между стандартной графикой и текстур-паками высокого разрешения с помощью нашего интерактивного слайдера «До и После»!
+                </p>
+            </div>
+
+            <!-- Texture Packs Grid -->
+            <div id="texturesGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-10">
+                <!-- Dynamic injection via Javascript -->
+            </div>
+        </section>
+
+
+        <!-- INSTALLATION GUIDE SECTION ("Как установить?") -->
+        <section id="install" class="scroll-mt-24 bg-slate-950/40 border border-slate-900 rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 pb-8 border-b border-slate-900">
+                <div>
+                    <div class="flex items-center gap-2 text-emerald-400 font-medium text-sm uppercase tracking-widest mb-2">
+                        <i data-lucide="help-circle" class="w-4 h-4"></i>
+                        Подробное Руководство
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                        Как установить?
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Простые пошаговые инструкции со скриншотами, которые помогут вам настроить игру за 5 минут.
+                    </p>
+                </div>
+
+                <!-- Toggle Guide System -->
+                <div class="flex gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800/80 self-start">
+                    <button onclick="switchGuide('mods-guide', this)" class="guide-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition duration-200 cursor-pointer bg-emerald-500 text-slate-950 shadow">
+                        Установка модов для Neoforge
+                    </button>
+                    <button onclick="switchGuide('textures-guide', this)" class="guide-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wide text-slate-400 hover:text-white transition duration-200 cursor-pointer">
+                        Установка Neoforge
+                    </button>
+                </div>
+            </div>
+
+            <!-- GUIDE CONTENT: MODS -->
+            <div id="mods-guide" class="guide-content block space-y-12">
+                <!-- Step 1 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4 order-2 lg:order-1">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            1
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Выберите и ваш лаунчер</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Для работы большинства модов требуется специальный загрузчик. Лаунчеры подойдут как и пиратские <strong>TLauncher</strong> так и лицензионные <strong>LunarClient</strong>.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Установите Java 21 или выше (По дефолту устанавливается вместе с игрой если нету ,то 
+								Зайди на adoptium.net ->
+                                Скачай Temurin 21 — Windows, x64, Installer (.msi) ->
+                                Установи).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Установить можно 2-мя способами, через ваш <strong>лаунчер</strong> и с помощью <strong>установщика</strong></span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Возьмён ради примера TLauncher.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 relative group cursor-zoom-in" onclick="openLightbox(blob:https://i.imgur.com/djxs01Q.png', 'Установка Java и Загрузчика модов')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/djxs01Q.png" alt="Установка загрузчика" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-7 relative group cursor-zoom-in" onclick="openLightbox('https://i.imgur.com/5wICWAd.png', 'Скачивание файлов модов')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/5wICWAd.png" alt="Загрузка файлов" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> 
+                        </span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Скачайте версию neoforge 1.21.1 минимум 21.1.228</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            В TLauncher это можно сделать через модпаки <code></code>.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите кнопку TL MODS справа от кнопки "Установить"/"Войти в игру".</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите на кропку "Создать" <code></code>.</span>
+                            </li>
+							</li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Выберите Тип загрузчика: Neoforge. Затем версию игры: 1.21.1. И Версию загрузчика: 21.1.228. <code></code>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-5 space-y-4 order-2 lg:order-1">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Перенесите моды в папку игры</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Вам нужно скачать Архив с jar-файлами и поместить в специальную папку внутри корневой директории игры. <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white"><a href="https://drive.google.com/file/d/13zvDiAG8ZJVBDT6_7J1E7rJUeIR24K3D/view?usp=sharing" download>
+  <button>DOWNLOAD</button>
+</a></kbd>
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите клавиши <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white">Win + R</kbd> на клавиатуре.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Введите команду <code>%appdata%</code> и нажмите Enter.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Откройте папку <code>.minecraft</code>, затем зайдите в <code>versions</code>, затем в папку вашей версии и найдите <code>mods</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Перенесите в эту папку neoforge-1.21.1.rar. Если папки <code>mods</code> нет, создайте её.</span>
+                            </li>
+							</li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Разорхивируйте файл ПКМ -> Извлечь всё в текущую папку.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 relative group cursor-zoom-in" onclick="openLightbox('https://i.imgur.com/IOOHFvA.png', 'Папка mods в директории игры')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/IOOHFvA.png" alt="Папка модов" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-7 relative group cursor-zoom-in" onclick="openLightbox('https://i.imgur.com/1MQcBfh.png', 'Запуск игры с установленными модами')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/1MQcBfh.png" alt="Запуск игры" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            4
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Перенесите конфиги в папку игры</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                           Вам нужно скачать Архив с файлами и поместить в специальную папку внутри корневой директории игры. <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white"><a href="https://drive.google.com/file/d/1YYv1uiB1Z43X5PGh91DHIcMnF9X-OvOa/view?usp=sharing" download>
+  <button>DOWNLOAD</button>
+</a></kbd>
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+							<li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите клавиши <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white">Win + R</kbd> на клавиатуре.</span>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Введите команду <code>%appdata%</code> и нажмите Enter.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Откройте папку <code>.minecraft</code>, а в ней найдите папку <code>config</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Перенесите в эту папку fancymenu.rar. Если папки <code>config</code> нет, создайте её.</span>
+                            </li>
+							</li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Разорхивируйте файл ПКМ -> Извлечь всё в текущую папку.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+			
+
+                <!-- Step 3 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-5 space-y-4 order-2 lg:order-1">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Настройте худ вашей игры!</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Для оптимизации советуется:
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>В поле "Интерфейс" выбрать 3х!</span>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 relative group cursor-zoom-in" onclick="openLightbox(https://i.imgur.com/iUij8uB.png', 'Папка mods в директории игры')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/iUij8uB.png" alt="Папка модов" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                </div>
+		
+              <!-- Step 2 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-7 relative group cursor-zoom-in" onclick="openLightbox(https://i.imgur.com/Xw7qb8u.png', 'Скачивание файлов модов')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://i.imgur.com/Xw7qb8u.png" alt="Загрузка файлов" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Наслаждайтесь игрой</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Войдите в игру <code></code>.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите "Продолжить"</span>
+                            </li>
+							<li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите "Подключиться к серверу..."</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            <!-- GUIDE CONTENT: TEXTURES -->
+            <div id="textures-guide" class="guide-content hidden space-y-12">
+                <!-- Step 1 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-5 space-y-4 order-2 lg:order-1">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            1
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Скачайте архив текстур-пака</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Выберите понравившийся набор текстур в нашем списке и скачайте его. Он будет иметь расширение <code>.zip</code>.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Обратите внимание на разрешение (16x, 64x, 256x). Чем оно выше, тем выше нагрузка на вашу видеокарту.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Скачанный ZIP-файл распаковывать НЕ нужно! Игра умеет читать архивы напрямую.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 relative group cursor-zoom-in" onclick="openLightbox('https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80', 'Загрузка текстур-пака (.zip)')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80" alt="Скачивание zip-архива текстур" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-7 relative group cursor-zoom-in" onclick="openLightbox('https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80', 'Корневая директория игры')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80" alt="Поиск папки" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Откройте папку resourcepacks</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Для быстрой установки перейдите в нужную директорию прямо из интерфейса игры или вручную на компьютере.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span><b>Вариант 1:</b> Зайдите в «Настройки» -> «Наборы ресурсов» -> Нажмите «Открыть папку с наборами».</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span><b>Вариант 2:</b> Нажмите клавиатурное сочетание <kbd class="px-1 bg-slate-800 text-white rounded">Win + R</kbd>, введите <code>%appdata%/.minecraft/resourcepacks</code> и нажмите Enter.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-5 space-y-4 order-2 lg:order-1">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Переместите ZIP в папку</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Просто скопируйте или перетащите скачанный архив во вновь открывшуюся папку.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Убедитесь, что файл перенесён именно в папку <code>resourcepacks</code>.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Закройте окно папки после перемещения.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-7 order-1 lg:order-2 relative group cursor-zoom-in" onclick="openLightbox('https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80', 'Копирование ZIP-файла текстур в resourcepacks')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80" alt="Копирование архива" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8 border-t border-slate-900">
+                    <div class="lg:col-span-7 relative group cursor-zoom-in" onclick="openLightbox('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80', 'Активация ресурспака в меню игры')">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 rounded-2xl z-10"></div>
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80" alt="Активация текстур в игре" class="w-full h-64 sm:h-80 object-cover rounded-2xl border border-slate-800 shadow-lg group-hover:border-emerald-500/30 transition duration-300">
+                        <span class="absolute bottom-4 left-4 bg-slate-900/90 px-3 py-1 rounded-lg text-xs text-slate-300 border border-slate-800 z-20 flex items-center gap-1.5">
+                            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i> Нажмите для увеличения
+                        </span>
+                    </div>
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="inline-flex items-center justify-center w-10 h-10 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400 font-black text-lg">
+                            4
+                        </div>
+                        <h3 class="text-xl font-bold text-white">Активируйте пак в игре</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            Вернитесь в меню игры и включите новые текстуры, чтобы заменить стандартный вид блоков.
+                        </p>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>В меню «Наборы ресурсов» вы увидите скачанный пак в левом списке (Доступные).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Наведите на него мышь и нажмите на круглую стрелку «Вправо». Он переместится в правый список (Выбранные).</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                                <span>Нажмите кнопку «Готово». Игра немного зависнет на 3-5 секунд для ререндера. Готово!</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FAQ SECTION -->
+    <section class="max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 pb-24">
+        <h3 class="text-2xl sm:text-3xl font-black text-white text-center tracking-tight mb-10">Часто Задаваемые Вопросы</h3>
+        <div class="space-y-4">
+            <div class="bg-slate-950/70 border border-slate-900 rounded-2xl p-5 sm:p-6 transition duration-200 hover:border-slate-800">
+                <h4 class="text-base sm:text-lg font-bold text-white flex items-center gap-3">
+                    <span class="text-emerald-400">Q.</span> Безопасно ли скачивать моды с этого сайта?
+                </h4>
+                <p class="mt-3 text-sm text-slate-400 leading-relaxed pl-7">
+                    Да! Абсолютно все моды, плагины и текстур-паки перед публикацией проходят автоматическую и ручную проверку на наличие вредоносного кода с помощью встроенных сканеров. Мы заботимся о вашей безопасности.
+                </p>
+            </div>
+            <div class="bg-slate-950/70 border border-slate-900 rounded-2xl p-5 sm:p-6 transition duration-200 hover:border-slate-800">
+                <h4 class="text-base sm:text-lg font-bold text-white flex items-center gap-3">
+                    <span class="text-emerald-400">Q.</span> Что делать, если игра крашится (вылетает) после запуска?
+                </h4>
+                <p class="mt-3 text-sm text-slate-400 leading-relaxed pl-7">
+                    В 95% случаев это происходит из-за несовместимости модов между собой или несоответствия версий. Проверьте лог вылета, убедитесь, что все моды установлены для одной и той же версии игры и загрузчика (например, только для Forge 1.21), и что у вас установлена необходимая библиотека мода.
+                </p>
+            </div>
+            <div class="bg-slate-950/70 border border-slate-900 rounded-2xl p-5 sm:p-6 transition duration-200 hover:border-slate-800">
+                <h4 class="text-base sm:text-lg font-bold text-white flex items-center gap-3">
+                    <span class="text-emerald-400">Q.</span> Как сочетать шейдеры и текстур-паки?
+                </h4>
+                <p class="mt-3 text-sm text-slate-400 leading-relaxed pl-7">
+                    Для лучшего эффекта с текстурами высокого разрешения используйте шейдеры с поддержкой PBR/объемного освещения (например, BSL Shaders или Complementary). Сначала активируйте текстур-пак, а затем включите шейдер в настройках графики Iris или Optifine.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            
+            <!-- Col 1: Info -->
+            <div class="space-y-4 md:col-span-2">
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-br from-emerald-400 to-teal-600 p-1.5 rounded-lg">
+                        <i data-lucide="box" class="w-5 h-5 text-slate-950 stroke-[2.5]"></i>
+                    </div>
+                    <span class="text-lg font-bold text-white">EpicCraft Workshop</span>
+                </div>
+                <p class="text-xs text-slate-400 max-w-sm leading-relaxed">
+                    Независимый портал лучших ресурсов для улучшения вашей игры. Скачивайте качественные моды, детализированные текстур-паки и изучайте простые инструкции по установке.
+                </p>
+                <p class="text-[10px] text-slate-600">
+                    Disclaimer: Не является официальным продуктом Mojang Studios или Microsoft. Все товарные знаки принадлежат их законным владельцам.
+                </p>
+            </div>
+
+            <!-- Col 2: Navigation -->
+            <div>
+                <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-4">Навигация</h5>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li><a href="#mods" class="hover:text-emerald-400 transition">Каталог Модов</a></li>
+                    <li><a href="#textures" class="hover:text-emerald-400 transition">Текстуры До и После</a></li>
+                    <li><a href="#install" class="hover:text-emerald-400 transition">Инструкция: Моды</a></li>
+                    <li><a href="#install" onclick="switchGuide('textures-guide', document.querySelectorAll('.guide-tab-btn')[1])" class="hover:text-emerald-400 transition">Инструкция: Текстуры</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Community / Contacts -->
+            <div>
+                <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-4">Обратная связь</h5>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-3.5 h-3.5 text-slate-500"></i>
+                        support@epiccraft.net
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i data-lucide="github" class="w-3.5 h-3.5 text-slate-500"></i>
+                        github.com/epiccraft
+                    </li>
+                    <li class="flex items-center gap-2 text-emerald-400 font-medium">
+                        <i data-lucide="message-square" class="w-3.5 h-3.5"></i>
+                        Присоединиться к Discord
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-slate-900 text-center flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-xs text-slate-500">
+                &copy; 2026 EpicCraft Workshop. Все права защищены. Разработано с ❤️ для геймеров.
+            </p>
+            <div class="flex gap-4 text-xs text-slate-500">
+                <a href="#" class="hover:text-slate-300">Политика конфиденциальности</a>
+                <span>&middot;</span>
+                <a href="#" class="hover:text-slate-300">Условия использования</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- DOWNLOAD SIMULATION MODAL -->
+    <div id="downloadModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-slate-900 border border-slate-800 max-w-md w-full rounded-2xl p-6 relative shadow-2xl scale-95 transition-transform duration-300" id="downloadModalContent">
+            <!-- Close -->
+            <button onclick="closeDownloadModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1 bg-slate-800/50 hover:bg-slate-800 rounded-lg cursor-pointer">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-4 mb-6">
+                <div class="bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl text-emerald-400">
+                    <i data-lucide="download-cloud" class="w-8 h-8"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-semibold text-emerald-500 uppercase tracking-widest pixel-font">Скачивание</span>
+                    <h3 id="modalItemTitle" class="text-lg font-bold text-white leading-tight">Better Dungeons Mod</h3>
+                </div>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="bg-slate-950 rounded-xl p-4 space-y-2 border border-slate-900 text-xs mb-6">
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Имя файла:</span>
+                    <span class="text-slate-300 font-mono" id="modalItemFileName">better_dungeons_v1.2.jar</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Размер файла:</span>
+                    <span class="text-emerald-400 font-semibold" id="modalItemSize">24.5 MB</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Версия игры:</span>
+                    <span class="text-slate-300 font-medium" id="modalItemVersion">1.21.1 - 1.20.4</span>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="downloadLoadingState" class="space-y-4">
+                <div class="flex justify-between text-xs">
+                    <span class="text-slate-400 flex items-center gap-1.5">
+                        <i class="w-3.5 h-3.5 text-emerald-400 animate-spin inline-block border-2 border-emerald-400 border-t-transparent rounded-full"></i>
+                        Генерация защищенной ссылки...
+                    </span>
+                    <span class="text-slate-300 font-bold" id="downloadTimer">5 секунд</span>
+                </div>
+                <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800">
+                    <div id="downloadProgressBar" class="bg-emerald-500 h-full w-0 transition-all duration-1000 ease-linear rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Ready State (Initially Hidden) -->
+            <div id="downloadReadyState" class="hidden space-y-4">
+                <div class="flex items-center gap-2 text-emerald-400 text-xs font-medium bg-emerald-500/5 border border-emerald-500/10 px-3.5 py-2.5 rounded-xl">
+                    <i data-lucide="check" class="w-4.5 h-4.5"></i>
+                    Ссылка успешно сгенерирована и проверена!
+                </div>
+                <a id="directDownloadBtn" href="#" class="w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-emerald-500/20 transition duration-200 cursor-pointer">
+                    <i data-lucide="download" class="w-5 h-5 stroke-[2.5]"></i>
+                    СКАЧАТЬ ФАЙЛ БЕСПЛАТНО
+                </a>
+                <p class="text-[10px] text-slate-500 text-center leading-relaxed">
+                    Файл будет сохранен напрямую. Не содержит спама или нежелательного ПО.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- BOOKMARKS DRAWER/DRAWER OVERLAY -->
+    <div id="bookmarksDrawer" class="fixed inset-y-0 right-0 z-50 max-w-md w-full bg-slate-900 border-l border-slate-800 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Header -->
+        <div class="p-6 border-b border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-white">
+                <i data-lucide="heart" class="w-5 h-5 text-emerald-400 fill-emerald-400"></i>
+                <h3 class="text-lg font-bold">Ваши Закладки</h3>
+                <span id="bookmarksDrawerBadge" class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded text-xs font-bold">0</span>
+            </div>
+            <button onclick="toggleBookmarksDrawer()" class="text-slate-400 hover:text-white p-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg cursor-pointer">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Bookmarked Items List -->
+        <div id="bookmarksList" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <!-- Bookmark item element example injected by JS -->
+            <div class="text-center py-12 text-slate-500" id="emptyBookmarksMessage">
+                <i data-lucide="folder-open" class="w-12 h-12 mx-auto text-slate-700 mb-3"></i>
+                <p class="text-sm font-medium">В вашей библиотеке пока пусто.</p>
+                <p class="text-xs text-slate-600 mt-1 px-6">Нажимайте на сердечки у интересующих модов или текстур-паков, чтобы сохранять их здесь для быстрого скачивания!</p>
+            </div>
+        </div>
+
+        <!-- Clear all and close buttons -->
+        <div class="p-6 border-t border-slate-800 space-y-3 bg-slate-950">
+            <button onclick="clearAllBookmarks()" id="clearAllBookmarksBtn" class="hidden w-full py-3 border border-slate-800 hover:border-red-500/40 text-slate-400 hover:text-red-400 text-xs font-medium rounded-xl transition duration-200 cursor-pointer flex items-center justify-center gap-1.5">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                Очистить все закладки
+            </button>
+            <button onclick="toggleBookmarksDrawer()" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition duration-200 cursor-pointer border border-slate-800 text-center block">
+                Продолжить просмотр
+            </button>
+        </div>
+    </div>
+
+
+    <!-- LIGHTBOX IMAGE VIEWER -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeLightbox()">
+        <div class="absolute top-4 right-4 flex gap-2 z-10">
+            <!-- Close -->
+            <button class="text-slate-300 hover:text-white p-2.5 bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-800 cursor-pointer">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="max-w-5xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
+            <img id="lightboxImage" src="" alt="Увеличено" class="max-h-[80vh] w-auto object-contain rounded-2xl border border-slate-800 shadow-2xl">
+            <p id="lightboxCaption" class="mt-4 text-sm text-slate-300 text-center font-medium px-4 max-w-2xl py-2 bg-slate-900/90 rounded-xl border border-slate-800/60"></p>
+        </div>
+    </div>
+
+
+    <!-- TOAST NOTIFICATIONS CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none max-w-sm w-full">
+        <!-- Dynamically generated toasts will slide in here -->
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // INITIAL DATASET
+        const modsData = [
+            {
+                id: 'mod-better-dungeons',
+                title: 'Better Dungeons & Dungeons+',
+                category: 'gameplay',
+                categoryRu: 'Геймплей',
+                version: '1.20.1 - 1.21.1',
+                image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
+                desc: 'Глобальная модификация, полностью перерабатывающая генерацию подземелий в игре. Добавляет эпические руины, подземные башни, коварные ловушки и опасных боссов, охраняющих несметные сокровища.',
+                features: [
+                    'Более 55 новых видов детально проработанных подземных крепостей',
+                    '5 новых боссов с уникальными фазами сражений',
+                    'Более 30 легендарных видов оружия с зачарованиями',
+                    'Полностью настраиваемая частота спавна в конфигурации'
+                ],
+                downloads: '185K+',
+                size: '24.5 MB',
+                fileName: 'better_dungeons_v2.4.1_1.21.jar'
+            },
+            {
+                id: 'mod-optitech',
+                title: 'OptiTech Engine: Core FPS',
+                category: 'optimization',
+                categoryRu: 'Оптимизация',
+                version: '1.16.5 - 1.21.1',
+                image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=800&q=80',
+                desc: 'Лучший оптимизатор графического движка на сегодняшний день. Увеличивает производительность (FPS) в 2-3 раза, плавно подгружает чанки и значительно снижает потребление оперативной памяти.',
+                features: [
+                    'Стабильный прирост FPS от 80% до 200%',
+                    'Сглаживание фризов при резком повороте камеры',
+                    'Встроенная система динамического освещения и теней',
+                    'Совместимость с текстурами ультра-высокого разрешения'
+                ],
+                downloads: '420K+',
+                size: '8.2 MB',
+                fileName: 'optitech_optimizer_v8.6_1.21.jar'
+            },
+            {
+                id: 'mod-aether',
+                title: 'The Aether: Sky Realms Reborn',
+                category: 'gameplay',
+                categoryRu: 'Геймплей',
+                version: '1.20.4 - 1.21.1',
+                image: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80',
+                desc: 'Возвращение легендарного измерения! Постройте портал из светящегося камня, наполните его водой и перенеситесь в райские парящие острова. Новые мобы, боссы в облачных замках и небесная руда.',
+                features: [
+                    'Парящие острова из небесных блоков с уникальной гравитацией',
+                    'Приручаемые летающие грифоны и зловещие валькирии',
+                    'Три уровня небесных подземелий с мощными реликвиями',
+                    'Новые материалы: Холистоун, Амброзиум и Гравитит'
+                ],
+                downloads: '94K+',
+                size: '48.1 MB',
+                fileName: 'the_aether_reborn_v1.1.jar'
+            },
+            {
+                id: 'mod-shaders',
+                title: 'Cinematic Ultra Shaders',
+                category: 'graphics',
+                categoryRu: 'Графика',
+                version: '1.18.2 - 1.21.1',
+                image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
+                desc: 'Привнесите фотореализм в вашу игру. Шейдеры добавляют мягкие динамические тени, реалистичное колыхание листвы и травы от ветра, объёмный туман во время дождя и сногсшибательную воду с зеркальными отражениями.',
+                features: [
+                    'Умная трассировка лучей для потрясающего глобального освещения',
+                    'Кинематографические эффекты: засветы (Bloom), фокус и размытие',
+                    'Реалистичная анимация воды, тумана и солнечных лучей',
+                    'Готовые графические профили (от Low до Extreme)'
+                ],
+                downloads: '290K+',
+                size: '14.7 MB',
+                fileName: 'cinematic_shaders_ultra_v4.zip'
+            }
+        ];
+
+        const texturesData = [
+            {
+                id: 'tex-ultrareal',
+                title: 'UltraRealism PBR 256x',
+                resolution: '256x256',
+                imageBefore: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80', // retro block representative
+                imageAfter: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80', // realistic representation
+                desc: 'Набор текстур сверхвысокого разрешения с поддержкой карт рельефа и отражений (PBR). Каждая доска, кирпич и травинка были отрисованы на основе реальных текстур природы и архитектуры.',
+                features: [
+                    'Потрясающий 3D-объем кирпичной кладки, камня и коры деревьев',
+                    'Металлы действительно блестят под лучами солнца',
+                    'Реалистичные отражения на влажных поверхностях во время грозы',
+                    'Рекомендуется использовать в связке с шейдерами'
+                ],
+                downloads: '115K+',
+                size: '124 MB',
+                fileName: 'ultrarealism_pbr_256x_v3.1.zip'
+            },
+            {
+                id: 'tex-medieval',
+                title: 'Fantasy Medieval Craft 64x',
+                resolution: '64x64',
+                imageBefore: 'https://images.unsplash.com/photo-1608178398319-48f814d0750c?auto=format&fit=crop&w=800&q=80',
+                imageAfter: 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&w=800&q=80',
+                desc: 'Превратите ваш игровой мир в атмосферное средневековое фэнтези. Этот ресурс-пак добавляет великолепную готическую ковку, резное дерево, винтажную броню и красивый интерфейс в стиле старинных свитков.',
+                features: [
+                    'Полностью измененный интерфейс меню, инвентаря и сундуков',
+                    'Уникальные аутентичные модели мечей, щитов и луков',
+                    'Красивые готические витражи и резные двери для строителей',
+                    'Атмосферное темное фэнтези-настроение в каждом блоке'
+                ],
+                downloads: '68K+',
+                size: '36.8 MB',
+                fileName: 'fantasy_medieval_64x_v1.8.zip'
+            }
+        ];
+
+        // LocalStorage State management
+        let bookmarks = JSON.parse(localStorage.getItem('epiccraft_bookmarks')) || [];
+
+        // Init on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMods('all');
+            renderTextures();
+            updateBookmarksUI();
+            lucide.createIcons();
+
+            // Add Search listeners
+            document.getElementById('globalSearchInput').addEventListener('input', handleSearch);
+            document.getElementById('mobileSearchInput').addEventListener('input', handleSearch);
+        });
+
+        // SEARCH FUNCTIONALITY
+        function handleSearch(e) {
+            const query = e.target.value.trim().toLowerCase();
+            
+            // Sync search inputs
+            document.getElementById('globalSearchInput').value = query;
+            document.getElementById('mobileSearchInput').value = query;
+
+            renderMods('all', query);
+            renderTextures(query);
+        }
+
+        // MODS RENDERER
+        function renderMods(category = 'all', searchQuery = '') {
+            const grid = document.getElementById('modsGrid');
+            grid.innerHTML = '';
+
+            const filtered = modsData.filter(mod => {
+                const matchesCategory = (category === 'all' || mod.category === category);
+                const matchesSearch = mod.title.toLowerCase().includes(searchQuery) || 
+                                      mod.desc.toLowerCase().includes(searchQuery) || 
+                                      mod.categoryRu.toLowerCase().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-500 border border-dashed border-slate-800 rounded-2xl bg-slate-950/20">
+                        <i data-lucide="search-slash" class="w-12 h-12 mx-auto text-slate-700 mb-2"></i>
+                        <p class="text-sm font-medium">Моды не найдены</p>
+                        <p class="text-xs text-slate-600 mt-1">Попробуйте изменить поисковый запрос или категорию.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            filtered.forEach(mod => {
+                const isBookmarked = bookmarks.some(b => b.id === mod.id);
+                const bookmarkClass = isBookmarked ? 'text-emerald-400 fill-emerald-400 border-emerald-500/40 bg-emerald-500/10' : 'text-slate-400 hover:text-emerald-400 hover:bg-slate-800 border-slate-800';
+                
+                // Build features bullet list
+                const featuresHTML = mod.features.map(feat => `
+                    <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <i data-lucide="circle-check" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                        <span>${feat}</span>
+                    </li>
+                `).join('');
+
+                const cardHTML = `
+                    <div class="bg-slate-950/50 border border-slate-900 rounded-2xl overflow-hidden flex flex-col transition duration-300 hover:-translate-y-1 hover:border-emerald-500/25 group glow-emerald-hover">
+                        <!-- Image Container -->
+                        <div class="relative w-full h-52 sm:h-60 overflow-hidden cursor-zoom-in" onclick="openLightbox('${mod.image}', '${mod.title}')">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                            <img src="${mod.image}" alt="${mod.title}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 z-20 flex gap-2">
+                                <span class="bg-emerald-500 text-slate-950 text-[9px] font-extrabold px-2.5 py-1 rounded-lg tracking-wider uppercase pixel-font">${mod.categoryRu}</span>
+                                <span class="bg-slate-900/95 border border-slate-800 text-slate-300 text-[10px] font-bold px-2 py-1 rounded-lg">${mod.version}</span>
+                            </div>
+
+                            <!-- Bookmark Trigger -->
+                            <button onclick="event.stopPropagation(); toggleBookmark('${mod.id}', 'mod')" 
+                                    class="absolute top-3 right-3 z-20 p-2 rounded-xl border backdrop-blur-md transition duration-200 cursor-pointer ${bookmarkClass}"
+                                    title="В закладки">
+                                <i data-lucide="heart" class="w-4.5 h-4.5"></i>
+                            </button>
+
+                            <span class="absolute bottom-3 left-3 text-slate-400 text-[10px] font-medium z-20 flex items-center gap-1.5">
+                                <i data-lucide="eye" class="w-3.5 h-3.5"></i> Увеличить скриншот
+                            </span>
+                        </div>
+
+                        <!-- Content Body -->
+                        <div class="p-5 sm:p-6 flex-grow flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-emerald-400 transition duration-200">${mod.title}</h3>
+                                <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">${mod.desc}</p>
+                            </div>
+
+                            <!-- Bullet points of features -->
+                            <div class="bg-slate-950 rounded-xl p-4 border border-slate-900 space-y-3.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Ключевые Особенности:</span>
+                                <ul class="space-y-2.5">
+                                    ${featuresHTML}
+                                </ul>
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="pt-4 border-t border-slate-900 flex items-center justify-between gap-4">
+                                <div class="text-left">
+                                    <span class="block text-[10px] text-slate-500 uppercase font-medium tracking-wider">Размер / Загрузки</span>
+                                    <span class="text-xs text-slate-300 font-medium">${mod.size} &bull; ${mod.downloads}</span>
+                                </div>
+                                <button onclick="startDownloadProcess('${mod.id}', 'mod')" 
+                                        class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs tracking-wide transition duration-200 cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-[0_4px_12px_rgba(16,185,129,0.15)]">
+                                    <i data-lucide="download" class="w-4 h-4 stroke-[2.5]"></i>
+                                    Скачать
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+            lucide.createIcons();
+        }
+
+        // TEXTURES RENDERER
+        function renderTextures(searchQuery = '') {
+            const grid = document.getElementById('texturesGrid');
+            grid.innerHTML = '';
+
+            const filtered = texturesData.filter(tex => {
+                return tex.title.toLowerCase().includes(searchQuery) || 
+                       tex.desc.toLowerCase().includes(searchQuery);
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-500 border border-dashed border-slate-800 rounded-2xl bg-slate-950/20">
+                        <i data-lucide="search-slash" class="w-12 h-12 mx-auto text-slate-700 mb-2"></i>
+                        <p class="text-sm font-medium">Текстур-паки не найдены</p>
+                        <p class="text-xs text-slate-600 mt-1">Попробуйте изменить поисковый запрос.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            filtered.forEach(tex => {
+                const isBookmarked = bookmarks.some(b => b.id === tex.id);
+                const bookmarkClass = isBookmarked ? 'text-emerald-400 fill-emerald-400 border-emerald-500/40 bg-emerald-500/10' : 'text-slate-400 hover:text-emerald-400 hover:bg-slate-800 border-slate-800';
+
+                const featuresHTML = tex.features.map(feat => `
+                    <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5"></i>
+                        <span>${feat}</span>
+                    </li>
+                `).join('');
+
+                const cardHTML = `
+                    <div class="bg-slate-950/50 border border-slate-900 rounded-2xl overflow-hidden flex flex-col transition duration-300 hover:border-emerald-500/25 group glow-emerald-hover">
+                        <!-- Interactive Image Slider -->
+                        <div class="relative w-full h-64 overflow-hidden select-none">
+                            <!-- Base Image (Vanilla / Before) -->
+                            <img src="${tex.imageBefore}" class="absolute inset-0 w-full h-full object-cover" alt="До (Стандартные)">
+                            
+                            <!-- Overlay Image (Modded / After) with dynamic clip-path -->
+                            <div id="clip-after-${tex.id}" class="absolute inset-0 w-full h-full overflow-hidden slider-after-clip" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+                                <img src="${tex.imageAfter}" class="absolute inset-0 w-full h-full object-cover" alt="После (Улучшенные)">
+                            </div>
+
+                            <!-- Sliding vertical handle bar -->
+                            <div id="handle-${tex.id}" class="absolute inset-y-0 left-1/2 w-1 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.9)] pointer-events-none">
+                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-emerald-500 text-slate-950 rounded-full flex items-center justify-center shadow-xl border-2 border-white text-xs font-bold select-none">
+                                    ⇄
+                                </div>
+                            </div>
+
+                            <!-- Comparison Badges -->
+                            <span class="absolute top-3 left-3 bg-slate-950/95 text-slate-400 text-[9px] font-bold px-2 py-1 rounded-md tracking-widest uppercase border border-slate-800 z-20 select-none">Vanilla</span>
+                            <span class="absolute top-3 right-3 bg-emerald-500 text-slate-950 text-[9px] font-black px-2 py-1 rounded-md tracking-widest uppercase z-20 select-none">Epic HD</span>
+
+                            <!-- Info Resolution Badge -->
+                            <div class="absolute bottom-3 left-3 z-20 flex gap-2">
+                                <span class="bg-slate-900/95 border border-slate-800 text-emerald-400 text-[10px] font-black px-3 py-1 rounded-lg tracking-wide uppercase pixel-font">${tex.resolution}</span>
+                            </div>
+
+                            <!-- Drag Input Overlay -->
+                            <input type="range" min="0" max="100" value="50" 
+                                   class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30"
+                                   oninput="updateComparisonSlider('${tex.id}', this.value)">
+                        </div>
+
+                        <!-- Card Info Content -->
+                        <div class="p-5 sm:p-6 flex-grow flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between gap-4">
+                                    <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-emerald-400 transition duration-200">${tex.title}</h3>
+                                    <button onclick="toggleBookmark('${tex.id}', 'texture')" 
+                                            class="p-2 rounded-xl border backdrop-blur-md transition duration-200 cursor-pointer ${bookmarkClass}"
+                                            title="В закладки">
+                                        <i data-lucide="heart" class="w-4.5 h-4.5"></i>
+                                    </button>
+                                </div>
+                                <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">${tex.desc}</p>
+                            </div>
+
+                            <!-- List of points / What changes -->
+                            <div class="bg-slate-950 rounded-xl p-4 border border-slate-900 space-y-3.5">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Изменения в ресурс-паке:</span>
+                                <ul class="space-y-2.5">
+                                    ${featuresHTML}
+                                </ul>
+                            </div>
+
+                            <!-- Card Footer -->
+                            <div class="pt-4 border-t border-slate-900 flex items-center justify-between gap-4">
+                                <div class="text-left">
+                                    <span class="block text-[10px] text-slate-500 uppercase font-medium tracking-wider">Размер / Загрузки</span>
+                                    <span class="text-xs text-slate-300 font-medium">${tex.size} &bull; ${tex.downloads}</span>
+                                </div>
+                                <button onclick="startDownloadProcess('${tex.id}', 'texture')" 
+                                        class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs tracking-wide transition duration-200 cursor-pointer flex items-center gap-1.5 active:scale-95 shadow-[0_4px_12px_rgba(16,185,129,0.15)]">
+                                    <i data-lucide="download" class="w-4 h-4 stroke-[2.5]"></i>
+                                    Скачать пак
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
+            lucide.createIcons();
+        }
+
+        // DYNAMIC BEFORE/AFTER IMAGE SLIDER
+        function updateComparisonSlider(id, value) {
+            const clipAfter = document.getElementById(`clip-after-${id}`);
+            const handle = document.getElementById(`handle-${id}`);
+            
+            if (clipAfter && handle) {
+                clipAfter.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
+                handle.style.left = `${value}%`;
+            }
+        }
+
+        // TAB FILTERS FOR MODS
+        function filterMods(category, btnElement) {
+            // Update active tab classes
+            document.querySelectorAll('.mod-tab-btn').forEach(btn => {
+                btn.className = 'mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer';
+            });
+            btnElement.className = 'mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-200 bg-emerald-500 text-slate-950 shadow-md transition duration-200 cursor-pointer';
+
+            const query = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+            renderMods(category, query);
+        }
+
+        // GUIDE TAB SWITCHER ("Как установить?")
+        function switchGuide(guideId, btnElement) {
+            // Update tabs
+            document.querySelectorAll('.guide-tab-btn').forEach(btn => {
+                btn.className = 'guide-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wide text-slate-400 hover:text-white transition duration-200 cursor-pointer';
+            });
+            btnElement.className = 'guide-tab-btn px-4 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition duration-200 cursor-pointer bg-emerald-500 text-slate-950 shadow';
+
+            // Update visible content
+            document.querySelectorAll('.guide-content').forEach(guide => {
+                guide.classList.add('hidden');
+                guide.classList.remove('block');
+            });
+            
+            const activeGuide = document.getElementById(guideId);
+            if (activeGuide) {
+                activeGuide.classList.remove('hidden');
+                activeGuide.classList.add('block');
+            }
+        }
+
+        // BOOKMARKS SYSTEM
+        function toggleBookmark(id, type) {
+            const itemIndex = bookmarks.findIndex(b => b.id === id);
+            let item;
+            
+            if (type === 'mod') {
+                item = modsData.find(m => m.id === id);
+            } else {
+                item = texturesData.find(t => t.id === id);
+            }
+
+            if (!item) return;
+
+            if (itemIndex > -1) {
+                // Remove bookmark
+                bookmarks.splice(itemIndex, 1);
+                showToast('Удалено из закладок', `Модификация «${item.title}» убрана из вашей библиотеки.`);
+            } else {
+                // Add bookmark
+                bookmarks.push({
+                    id: item.id,
+                    title: item.title,
+                    type: type,
+                    size: item.size,
+                    version: item.version || item.resolution,
+                    fileName: item.fileName
+                });
+                showToast('Добавлено в закладки', `«${item.title}» сохранено в закладках!`, 'heart');
+            }
+
+            // Save state and update UI
+            localStorage.setItem('epiccraft_bookmarks', JSON.stringify(bookmarks));
+            updateBookmarksUI();
+            
+            // Re-render lists to update heart button fills
+            const query = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+            const activeModTab = document.querySelector('.mod-tab-btn.bg-emerald-500');
+            let activeCat = 'all';
+            if (activeModTab) {
+                // extract category from onclick signature if necessary, simple check
+                const txt = activeModTab.textContent.trim();
+                if (txt === 'Геймплей') activeCat = 'gameplay';
+                if (txt === 'Оптимизация') activeCat = 'optimization';
+                if (txt === 'Графика') activeCat = 'graphics';
+            }
+            renderMods(activeCat, query);
+            renderTextures(query);
+        }
+
+        function updateBookmarksUI() {
+            const countBadge = document.getElementById('bookmarksCountBadge');
+            const drawerBadge = document.getElementById('bookmarksDrawerBadge');
+            const count = bookmarks.length;
+
+            // Navbar badge count
+            countBadge.textContent = count;
+            drawerBadge.textContent = count;
+
+            if (count > 0) {
+                countBadge.classList.remove('scale-0');
+                countBadge.classList.add('scale-100');
+                document.getElementById('clearAllBookmarksBtn').classList.remove('hidden');
+            } else {
+                countBadge.classList.add('scale-0');
+                countBadge.classList.remove('scale-100');
+                document.getElementById('clearAllBookmarksBtn').classList.add('hidden');
+            }
+
+            // Render items list inside drawer
+            const list = document.getElementById('bookmarksList');
+            const emptyMsg = document.getElementById('emptyBookmarksMessage');
+
+            // clear everything except empty message
+            const listItems = list.querySelectorAll('.bookmark-entry-item');
+            listItems.forEach(item => item.remove());
+
+            if (count === 0) {
+                emptyMsg.classList.remove('hidden');
+            } else {
+                emptyMsg.classList.add('hidden');
+
+                bookmarks.forEach(item => {
+                    const icon = item.type === 'mod' ? 'box' : 'palette';
+                    const badgeLabel = item.type === 'mod' ? 'Мод' : 'Пак';
+                    
+                    const itemHTML = `
+                        <div class="bookmark-entry-item bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between gap-3 transition duration-200 hover:border-slate-700">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="bg-slate-900 border border-slate-800 p-2 rounded-lg text-emerald-400 flex-shrink-0">
+                                    <i data-lucide="${icon}" class="w-5 h-5"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="flex items-center gap-2">
+                                        <span class="bg-emerald-500/10 text-emerald-400 text-[9px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wide">${badgeLabel}</span>
+                                        <span class="text-slate-500 text-[10px]">${item.version}</span>
+                                    </div>
+                                    <h4 class="text-sm font-bold text-white truncate mt-0.5">${item.title}</h4>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button onclick="startDownloadProcess('${item.id}', '${item.type}')" 
+                                        class="p-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg cursor-pointer transition"
+                                        title="Скачать">
+                                    <i data-lucide="download" class="w-4 h-4 stroke-[2.5]"></i>
+                                </button>
+                                <button onclick="toggleBookmark('${item.id}', '${item.type}')" 
+                                        class="p-2 bg-slate-900 hover:bg-slate-800 text-slate-500 hover:text-red-400 rounded-lg cursor-pointer transition border border-slate-800"
+                                        title="Удалить">
+                                    <i data-lucide="trash" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    list.insertAdjacentHTML('beforeend', itemHTML);
+                });
+            }
+            lucide.createIcons();
+        }
+
+        function clearAllBookmarks() {
+            if (confirm('Вы действительно хотите удалить все закладки?')) {
+                bookmarks = [];
+                localStorage.setItem('epiccraft_bookmarks', JSON.stringify(bookmarks));
+                updateBookmarksUI();
+                showToast('Закладки очищены', 'Все сохраненные элементы были успешно удалены из вашей библиотеки.');
+
+                // Re-render lists
+                const query = document.getElementById('globalSearchInput').value.trim().toLowerCase();
+                renderMods('all', query);
+                renderTextures(query);
+            }
+        }
+
+        function toggleBookmarksDrawer() {
+            const drawer = document.getElementById('bookmarksDrawer');
+            const isClosed = drawer.classList.contains('translate-x-full');
+            
+            if (isClosed) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+
+        // DOWNLOAD SIMULATOR WITH REAL TIMER
+        let downloadInterval;
+        
+        function startDownloadProcess(id, type) {
+            // Find item
+            let item;
+            if (type === 'mod') {
+                item = modsData.find(m => m.id === id);
+            } else {
+                item = texturesData.find(t => t.id === id);
+            }
+
+            if (!item) return;
+
+            // Open Drawer close if open
+            const drawer = document.getElementById('bookmarksDrawer');
+            drawer.classList.add('translate-x-full');
+
+            // Reset Modal States
+            document.getElementById('downloadLoadingState').classList.remove('hidden');
+            document.getElementById('downloadReadyState').classList.add('hidden');
+            document.getElementById('downloadProgressBar').style.width = '0%';
+
+            // Populate modal fields
+            document.getElementById('modalItemTitle').textContent = item.title;
+            document.getElementById('modalItemFileName').textContent = item.fileName;
+            document.getElementById('modalItemSize').textContent = item.size;
+            document.getElementById('modalItemVersion').textContent = item.version || item.resolution;
+
+            // Show Modal overlay
+            const modal = document.getElementById('downloadModal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('downloadModalContent').classList.remove('scale-95');
+            document.getElementById('downloadModalContent').classList.add('scale-100');
+
+            // Countdown Timer Logic (5 seconds)
+            let timeLeft = 5;
+            document.getElementById('downloadTimer').textContent = `${timeLeft} секунд`;
+            
+            clearInterval(downloadInterval);
+            
+            // Animate Progress bar inside interval
+            const pb = document.getElementById('downloadProgressBar');
+            let percent = 0;
+            const progressStep = 100 / (timeLeft * 10); // Update 10 times per second
+
+            downloadInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                percent += progressStep;
+                pb.style.width = `${Math.min(percent, 100)}%`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(downloadInterval);
+                    document.getElementById('downloadLoadingState').classList.add('hidden');
+                    document.getElementById('downloadReadyState').classList.remove('hidden');
+                    
+                    // Setup fake download download trigger
+                    const directBtn = document.getElementById('directDownloadBtn');
+                    directBtn.onclick = (e) => {
+                        e.preventDefault();
+                        triggerFileDownload(item.fileName);
+                    };
+                } else {
+                    document.getElementById('downloadTimer').textContent = `${Math.ceil(timeLeft)} секунд`;
+                }
+            }, 100);
+        }
+
+        function closeDownloadModal() {
+            clearInterval(downloadInterval);
+            const modal = document.getElementById('downloadModal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('downloadModalContent').classList.remove('scale-100');
+            document.getElementById('downloadModalContent').classList.add('scale-95');
+        }
+
+        function triggerFileDownload(fileName) {
+            // Simulate file download
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent('EpicCraft Game Resource Placeholder File'));
+            element.setAttribute('download', fileName);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+
+            closeDownloadModal();
+            showToast('Загрузка началась!', `Файл «${fileName}» успешно отправлен в загрузки браузера.`, 'download');
+        }
+
+
+        // LIGHTBOX IMAGE PREVIEWER
+        function openLightbox(imageUrl, caption) {
+            const lb = document.getElementById('lightbox');
+            const lbImg = document.getElementById('lightboxImage');
+            const lbCaption = document.getElementById('lightboxCaption');
+
+            lbImg.src = imageUrl;
+            lbCaption.textContent = caption || 'Изображение во весь экран';
+            
+            lb.classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('opacity-0', 'pointer-events-none');
+        }
+
+
+        // TOAST SYSTEM
+        function showToast(title, message, iconType = 'info') {
+            const container = document.getElementById('toastContainer');
+            
+            let iconHtml = '<i data-lucide="info" class="w-5 h-5 text-emerald-400"></i>';
+            if (iconType === 'heart') {
+                iconHtml = '<i data-lucide="heart" class="w-5 h-5 text-emerald-400 fill-emerald-400"></i>';
+            } else if (iconType === 'download') {
+                iconHtml = '<i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>';
+            }
+
+            const toastId = 'toast-' + Date.now();
+            const toastHTML = `
+                <div id="${toastId}" class="bg-slate-950 border border-slate-800/90 p-4 rounded-xl shadow-2xl flex gap-3 items-start pointer-events-auto translate-y-10 opacity-0 transition duration-300 w-full">
+                    <div class="bg-slate-900 border border-slate-800/60 p-2 rounded-lg flex-shrink-0">
+                        ${iconHtml}
+                    </div>
+                    <div class="min-w-0 flex-grow">
+                        <h4 class="text-xs font-bold text-white leading-none">${title}</h4>
+                        <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">${message}</p>
+                    </div>
+                    <button onclick="removeToast('${toastId}')" class="text-slate-500 hover:text-white flex-shrink-0">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', toastHTML);
+            lucide.createIcons();
+
+            // Trigger slide up & fade in
+            setTimeout(() => {
+                const el = document.getElementById(toastId);
+                if (el) {
+                    el.classList.remove('translate-y-10', 'opacity-0');
+                }
+            }, 50);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                removeToast(toastId);
+            }, 5000);
+        }
+
+        function removeToast(toastId) {
+            const el = document.getElementById(toastId);
+            if (el) {
+                el.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => {
+                    el.remove();
+                }, 300);
+            }
+        }
+
+
+        // MOBILE HAMBURGER MENU
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            const isHidden = menu.classList.contains('hidden');
+
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                icon.setAttribute('data-lucide', 'x');
+            } else {
+                menu.classList.add('hidden');
+                icon.setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
