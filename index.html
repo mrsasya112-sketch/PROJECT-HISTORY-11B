@@ -71,7 +71,7 @@
     <!-- Top Notification Banner -->
     <div class="bg-gradient-to-r from-emerald-900/80 to-teal-950/80 border-b border-emerald-500/20 text-center py-2 px-4 text-xs text-emerald-300 tracking-wide flex items-center justify-center gap-2 font-medium select-none">
         <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>Обновлено под версию игры <b>1.21.1</b>! Все моды и текстур-паки проверены на вирусы.</span>
+        <span>Обновлено под версию игры <b>1.21.1</b>! СКАЧАЙТЕ НОВОЕ ОБНОВЛЕНИЕ НИЖЕ 22.05.2026.</span>
     </div>
 
     <!-- STICKY NAVBAR -->
@@ -154,7 +154,7 @@
 
             <!-- Subtext -->
             <p class="mt-6 text-base sm:text-xl text-slate-400 max-w-2xl mx-auto font-light">
-                Качественные моды на любой вкус, невероятные реалистичные текстур-паки и пошаговые руководства по установке. Скачивай в один клик!
+                Моды с обновлений
             </p>
 
             <!-- Stats Highlights -->
@@ -204,13 +204,22 @@
                 <div>
                     <div class="flex items-center gap-2 text-emerald-400 font-medium text-sm uppercase tracking-widest mb-2">
                         <i data-lucide="box" class="w-4 h-4"></i>
-                        Дополнения для игры
+                        Обновлено
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                        Популярные Моды
+                         <p class="text-slate-400 text-sm leading-relaxed">
+                            Вам нужно скачать jar-файлы и поместить в специальную папку внутри игры. 22.05.2026  <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white"><a href="https://cdn.modrinth.com/data/HdIQwHGq/versions/jSiag2bY/lostcities-modern-tweaks-v2.0.7.jar?mr_download_reason=standalone&mr_game_version=1.21.1&mr_loader=neoforge" download>
+  <button>DOWNLOAD</button>
+</a></kbd>
+                        </p>
+						 <p class="text-slate-400 text-sm leading-relaxed">
+                             Вам нужно скачать jar-файлы и поместить в специальную папку внутри игры. 22.05.2026  <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 text-[10px] rounded text-white"><a href="https://cdn.modrinth.com/data/8VDCUS3b/versions/kjR5dEcf/lostcities-1.21-8.3.9.jar?mr_download_reason=standalone&mr_game_version=1.21.1&mr_loader=neoforge" download>
+  <button>DOWNLOAD</button>
+</a></kbd>
+                        </p>
                     </h2>
                     <p class="text-slate-400 text-sm mt-1">
-                        Качественные модификации с подробным описанием функций, скриншотами и инструкцией по запуску.
+                        Моды для обновлений
                     </p>
                 </div>
 
@@ -220,7 +229,7 @@
                         Все
                     </button>
                     <button onclick="filterMods('gameplay', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer">
-                        Геймплей
+                        ОБНОВЛЕНИЯ
                     </button>
                     <button onclick="filterMods('optimization', this)" class="mod-tab-btn px-4 py-2 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition duration-200 cursor-pointer">
                         Оптимизация
@@ -865,21 +874,17 @@
         const modsData = [
             {
                 id: 'mod-better-dungeons',
-                title: 'Better Dungeons & Dungeons+',
-                category: 'gameplay',
-                categoryRu: 'Геймплей',
+                title: 'lost cities',
+                category: 'обновление',
+                categoryRu: 'update',
                 version: '1.20.1 - 1.21.1',
                 image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
-                desc: 'Глобальная модификация, полностью перерабатывающая генерацию подземелий в игре. Добавляет эпические руины, подземные башни, коварные ловушки и опасных боссов, охраняющих несметные сокровища.',
+                desc: '',
                 features: [
-                    'Более 55 новых видов детально проработанных подземных крепостей',
-                    '5 новых боссов с уникальными фазами сражений',
-                    'Более 30 легендарных видов оружия с зачарованиями',
-                    'Полностью настраиваемая частота спавна в конфигурации'
                 ],
                 downloads: '185K+',
                 size: '24.5 MB',
-                fileName: 'better_dungeons_v2.4.1_1.21.jar'
+                fileName: 
             },
             {
                 id: 'mod-optitech',
